@@ -52,7 +52,7 @@ public class Main {
                 tmp = new ArrayList<>(sortedY);
                 neighborY.put(p, tmp);
             }
-            List<Line> sol = solve(sortedX, sortedY, neighborX, neighborY);
+            List<Line> sol = solve2(sortedX, sortedY, neighborX, neighborY);
             //Output formatted file
             if (count < 10)
                 generateOutput(sol, "greedy_solution0" + count + ".txt");
@@ -73,28 +73,31 @@ public class Main {
         RW.write(outList, "output/" + trace);
     }
 
-
-
-    public static List<Line> solve2(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nbs) {
+    public static List<Line> solve2(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
 
         List<Line> sol = new ArrayList<>();
-
-        boolean end = false;
-        double at = 0;
         char dir = 'q';
 
         //Partition until all points have no neighbors
         // O(n^4)
-        int x = 0;
-        while (!end) {
-            x++;
+        HashSet<Pairs> pairs = new HashSet<>();
+
+        for(Point p: X) {
+
+            for(Point q: X) {
+                if(!p.equals(q))
+                    pairs.add(new Pairs(p, q));
+
+            }
+
+        }
+
+        while (pairs.size() > 0) {
 
             //midpoints store all the midpoint combinations for the given set of points
             //divideX stores the effectiveness of division for each line through mid point
             HashSet<Double> midpointX = new HashSet<>();
-            HashMap<Double, Integer> divideX = new HashMap<>();
             HashSet<Double> midpointY = new HashSet<>();
-            HashMap<Double, Integer> divideY = new HashMap<>();
 
             // O(n^2)
             for (int i = 1; i < Y.size(); i++) {
@@ -104,131 +107,68 @@ public class Main {
 
             }
 
-            // O(n^3)
-            for (double mid : midpointX) {
+            int max = Integer.MIN_VALUE;
+            double select = 0;
 
-                HashSet<ArrayList<Point>> neighborhood = new HashSet<>();
-                divideX.put(mid, 0);
-                for (Point p : X) {
+            for (double mid: midpointX) {
+                int count = 0;
+                for(Pairs p: pairs) {
 
-                    int side1 = 0, side2 = 0;
-                    if (neighborhood.contains(nbs.get(p)))
-                        continue;
-                    neighborhood.add(nbs.get(p));
-                    for (Point q : nbs.get(p)) {
-                        if (q.x > mid)
-                            side1++;
-                        else
-                            side2++;
+                    if(p.a.x > mid && p.b.x < mid || p.a.x < mid && p.b.x > mid) {
+                        count++;
                     }
-                    divideX.put(mid, divideX.get(mid) + Math.abs(side1 - side2));
 
                 }
-
-
-            }
-
-            // O(n^3)
-            for (double mid : midpointY) {
-
-                HashSet<ArrayList<Point>> neighborhood = new HashSet<>();
-                divideY.put(mid, 0);
-                for (Point p : Y) {
-
-                    int side1 = 0, side2 = 0;
-                    if (neighborhood.contains(nbs.get(p)))
-                        continue;
-                    neighborhood.add(nbs.get(p));
-                    for (Point q : nbs.get(p)) {
-                        if (q.y > mid)
-                            side1++;
-                        else
-                            side2++;
-                    }
-                    divideY.put(mid, divideY.get(mid) + Math.abs(side1 - side2));
-
-                }
-
-            }
-
-            int min = Integer.MAX_VALUE;
-
-            // O(n^2)
-            for (double mid : midpointX) {
-
-                if (min > divideX.get(mid)) {
-                    min = divideX.get(mid);
+                if(count > max) {
+                    max = count;
+                    select = mid;
                     dir = 'v';
-                    at = mid;
                 }
-
             }
 
-            // O(n^2)
-            for (double mid : midpointY) {
+            for (double mid: midpointY) {
+                int count = 0;
+                for(Pairs p: pairs) {
 
-                if (min > divideY.get(mid)) {
-                    min = divideY.get(mid);
+                    if(p.a.y > mid && p.b.y < mid || p.a.y < mid && p.b.y > mid) {
+                        count++;
+                    }
+
+                }
+                if(count > max) {
+                    max = count;
+                    select = mid;
                     dir = 'h';
-                    at = mid;
                 }
             }
+            HashSet<Pairs> remove = new HashSet<>();
+            if( dir == 'h') {
 
-            if (dir == 'h') {
+                for(Pairs p: pairs) {
 
-                for (Point p : Y) {
-
-                    ArrayList<Point> neighbors = nbs.get(p);
-                    HashSet<Point> remove = new HashSet<>();
-                    for (Point q : neighbors) {
-
-                        if ((q.y < at && p.y > at) || (q.y > at && p.y < at)) {
-                            remove.add(q);
-                        }
-
+                    if(p.a.y > select && p.b.y < select || p.a.y < select && p.b.y > select) {
+                        remove.add(p);
                     }
-                    for (Point q : remove) {
-                        neighbors.remove(q);
-                    }
-                    nbs.put(p, neighbors);
-                    nbs.put(p, neighbors);
-
-                }
-
-            } else {
-
-                for (Point p : X) {
-
-                    ArrayList<Point> neighbors = nbs.get(p);
-                    HashSet<Point> remove = new HashSet<>();
-                    for (Point q : neighbors) {
-
-                        if ((q.x < at && p.x > at) || (q.x > at && p.x < at)) {
-                            remove.add(q);
-                        }
-
-                    }
-                    for (Point q : remove) {
-                        neighbors.remove(q);
-                    }
-                    nbs.put(p, neighbors);
-                    nbs.put(p, neighbors);
 
                 }
 
             }
+            else {
 
-            // See if partitioning is complete - check if no point has neighbors
-            end = true;
+                for(Pairs p: pairs) {
 
-            for (Point p : X) {
-                if (nbs.get(p).size() > 1)
-                    end = false;
+                    if(p.a.x > select && p.b.x < select || p.a.x < select && p.b.x > select) {
+                        remove.add(p);
+                    }
+
+                }
+
+            }
+            for(Pairs p: remove) {
+                pairs.remove(p);
             }
 
-
-            // Add the line to solution set
-            sol.add(new Line(at, dir));
+            sol.add(new Line(select, dir));
 
         }
 
@@ -393,56 +333,8 @@ public class Main {
 
         }
 
-        System.out.println(x);
-
         return sol;
     }
 
-    public static List<Line> solvegreedy(List<Point> points, HashMap<Point, ArrayList<Point>> neighbors, HashMap<Point, HashSet<Point>> ns, HashSet<Point> ps) {
-
-        List<Line> sol = new ArrayList<>();
-        HashSet<Pairs> nsep = new HashSet<>();
-
-        for(Point a: points) {
-            for(Point b: points) {
-                nsep.add(new Pairs(a, b));
-            }
-        }
-
-
-        boolean end = false;
-        double at = 0;
-        char dir = 'q';
-
-        while (!end) {
-
-            for(Pairs p: nsep) {
-                for(Pairs q: nsep) {
-                    int count = 0;
-                }
-            }
-
-
-            for (Point p : points) {
-                System.out.println(neighbors.get(p));
-            }
-
-            // See if partitioning is complete - check if no point has neighbors
-            end = true;
-
-            for (Point p : points) {
-                if (neighbors.get(p).size() > 1)
-                    end = false;
-            }
-
-            // Add the line to solution set
-            sol.add(new Line(at, dir));
-            System.out.println(sol);
-
-        }
-
-        return sol;
-
-    }
 
 }
