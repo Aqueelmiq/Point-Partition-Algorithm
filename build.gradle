@@ -5,6 +5,21 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+task(runGreedy, dependsOn: 'classes', type: JavaExec) {
+    main = 'Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runEfficient, dependsOn: 'classes', type: JavaExec) {
+    main = 'Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'mrhaki'
+}
+
+defaultTasks 'runGreedy'
+defaultTasks 'runEfficient'
+
+
 repositories {
     mavenCentral()
 }

@@ -25,10 +25,11 @@ public class RW {
             in = new Scanner(file);
             in.nextLine();
             while (in.hasNext()) {
-                points.add(new Point(in.nextInt(), in.nextInt()));
+                points.add(new Point(in.nextDouble(), in.nextDouble()));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Input files ended before 100");
+            System.exit(0);
         }
 
         return points;

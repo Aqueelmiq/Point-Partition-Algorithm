@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        int input = 6;
+        int input = 100;
         int count = 0;
 
         while (input > 0) {
@@ -52,7 +52,11 @@ public class Main {
                 tmp = new ArrayList<>(sortedY);
                 neighborY.put(p, tmp);
             }
-            List<Line> sol = solve2(sortedX, sortedY, neighborX, neighborY);
+            List<Line> sol;
+            if(args.length == 0)
+                sol = solvegreedy(sortedX, sortedY, neighborX, neighborY);
+            else
+                sol = solveefficient(sortedX, sortedY, neighborX, neighborY);
             //Output formatted file
             if (count < 10)
                 generateOutput(sol, "greedy_solution0" + count + ".txt");
@@ -73,13 +77,12 @@ public class Main {
         RW.write(outList, "output/" + trace);
     }
 
-    public static List<Line> solve2(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
+    public static List<Line> solvegreedy(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
 
         List<Line> sol = new ArrayList<>();
         char dir = 'q';
 
-        //Partition until all points have no neighbors
-        // O(n^4)
+        //Find all pairs of points
         HashSet<Pairs> pairs = new HashSet<>();
 
         for(Point p: X) {
@@ -94,12 +97,10 @@ public class Main {
 
         while (pairs.size() > 0) {
 
-            //midpoints store all the midpoint combinations for the given set of points
-            //divideX stores the effectiveness of division for each line through mid point
             HashSet<Double> midpointX = new HashSet<>();
             HashSet<Double> midpointY = new HashSet<>();
 
-            // O(n^2)
+            // O(n)
             for (int i = 1; i < Y.size(); i++) {
 
                 midpointY.add((Y.get(i - 1).y + Y.get(i).y) / 2);
@@ -110,6 +111,7 @@ public class Main {
             int max = Integer.MIN_VALUE;
             double select = 0;
 
+            // O(n^3)
             for (double mid: midpointX) {
                 int count = 0;
                 for(Pairs p: pairs) {
@@ -176,7 +178,7 @@ public class Main {
     }
 
 
-    public static List<Line> solve(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
+    public static List<Line> solveefficient(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
 
         List<Line> sol = new ArrayList<>();
 
