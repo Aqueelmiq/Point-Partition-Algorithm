@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d915c2c3-2a94-42be-9041-9fb268b8be65" name="Default" comment="&quot;Working Algorithm&quot;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Scenes.java" afterPath="$PROJECT_DIR$/src/main/java/Scenes.java" />
     </list>
     <list id="4129bf07-1738-44ad-b1ef-02308bb76783" name="Rejected commit: Default" comment="&quot;Working Algorithm&quot;" />
@@ -167,16 +168,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="greedy_solution07.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/output/greedy_solution07.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="greedy_solution01.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/output/greedy_solution01.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -220,14 +211,16 @@
       <file leaf-file-name="Scenes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Scenes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
+            <state relative-caret-position="232">
+              <caret line="83" column="51" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#1553#1569#0" expanded="true" />
-                <element signature="e#2844#2845#0" expanded="true" />
-                <element signature="e#2872#2873#0" expanded="true" />
+                <element signature="e#1817#1833#0" expanded="true" />
+                <element signature="e#3447#3453#0" expanded="true" />
+                <element signature="e#4819#4835#0" expanded="true" />
+                <element signature="e#6514#6515#0" expanded="true" />
+                <element signature="e#6542#6543#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1290,12 +1283,12 @@
       <updated>1480025230995</updated>
       <workItem from="1480025234442" duration="26331000" />
       <workItem from="1480372662219" duration="2403000" />
-      <workItem from="1480384288826" duration="8671000" />
+      <workItem from="1480384288826" duration="11363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37405000" />
+    <option name="totallyTimeSpent" value="40097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -1703,16 +1696,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="237" column="12" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Scenes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
+        <state relative-caret-position="232">
+          <caret line="83" column="51" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1553#1569#0" expanded="true" />
-            <element signature="e#2844#2845#0" expanded="true" />
-            <element signature="e#2872#2873#0" expanded="true" />
+            <element signature="e#1817#1833#0" expanded="true" />
+            <element signature="e#3447#3453#0" expanded="true" />
+            <element signature="e#4819#4835#0" expanded="true" />
+            <element signature="e#6514#6515#0" expanded="true" />
+            <element signature="e#6542#6543#0" expanded="true" />
           </folding>
         </state>
       </provider>
