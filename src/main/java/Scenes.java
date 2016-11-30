@@ -62,11 +62,9 @@ public class Scenes extends Application {
             series.getData().add(new XYChart.Data(p.x, p.y));
         }
 
-        Scene scene  = new Scene(root, scatterChart.getMaxWidth(), scatterChart.getMaxHeight(), Color.BLANCHEDALMOND);
+        Scene scene  = new Scene(root, scatterChart.getMaxWidth(), scatterChart.getMaxHeight());
         root.getChildren().add(scatterChart);
         scatterChart.getData().add(series);
-
-
 
         List<Lines> lines;
         if(sol < 10)
