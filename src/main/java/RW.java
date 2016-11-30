@@ -36,6 +36,26 @@ public class RW {
 
     }
 
+    public static List<Lines> read_lines(String filename) {
+
+        File file = new File(filename);
+        List<Lines> lines = new ArrayList<>();
+        Scanner in;
+        try {
+            in = new Scanner(file);
+            in.nextLine();
+            while (in.hasNext()) {
+                lines.add(new Lines(in.next().charAt(0), in.nextDouble()));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Input files ended before 100");
+            System.exit(0);
+        }
+
+        return lines;
+
+    }
+
     public static List<Point> read(String file) {
         filename = file;
         return read();

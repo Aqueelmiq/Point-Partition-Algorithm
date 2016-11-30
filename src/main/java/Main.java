@@ -52,7 +52,7 @@ public class Main {
                 tmp = new ArrayList<>(sortedY);
                 neighborY.put(p, tmp);
             }
-            List<Line> sol;
+            List<Lines> sol;
             if(args.length == 0)
                 sol = solvegreedy(sortedX, sortedY, neighborX, neighborY);
             else
@@ -68,18 +68,18 @@ public class Main {
 
     }
 
-    private static void generateOutput(List<Line> sol, String trace) {
+    private static void generateOutput(List<Lines> sol, String trace) {
 
         List<String> outList = new ArrayList<>();
         outList.add(sol.size() + "");
-        for (Line l : sol)
+        for (Lines l : sol)
             outList.add(l.toString());
         RW.write(outList, "output/" + trace);
     }
 
-    public static List<Line> solvegreedy(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
+    public static List<Lines> solvegreedy(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
 
-        List<Line> sol = new ArrayList<>();
+        List<Lines> sol = new ArrayList<>();
         char dir = 'q';
 
         //Find all pairs of points
@@ -170,7 +170,7 @@ public class Main {
                 pairs.remove(p);
             }
 
-            sol.add(new Line(select, dir));
+            sol.add(new Lines(select, dir));
 
         }
 
@@ -178,9 +178,9 @@ public class Main {
     }
 
 
-    public static List<Line> solveefficient(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
+    public static List<Lines> solveefficient(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
 
-        List<Line> sol = new ArrayList<>();
+        List<Lines> sol = new ArrayList<>();
 
         boolean end = false;
         double at = 0;
@@ -331,7 +331,7 @@ public class Main {
 
 
             // Add the line to solution set
-            sol.add(new Line(at, dir));
+            sol.add(new Lines(at, dir));
 
         }
 

@@ -16,8 +16,17 @@ task(runEfficient, dependsOn: 'classes', type: JavaExec) {
     args 'mrhaki'
 }
 
+task(graph, dependsOn: 'classes', type: JavaExec) {
+    main = 'Scenes'
+    classpath = sourceSets.main.runtimeClasspath
+    if ( project.hasProperty("appArgs") ) {
+        args Eval.me(appArgs)
+    }
+}
+
 defaultTasks 'runGreedy'
 defaultTasks 'runEfficient'
+defaultTasks 'graph'
 
 
 repositories {
