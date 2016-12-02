@@ -19,9 +19,9 @@ public class Main {
 
             List<Point> points;
             if (count < 10)
-                points = RW.read("input/instance0" + count + ".txt");
+                points = RW.read("input/instance0" + count);
             else
-                points = RW.read("input/instance" + count + ".txt");
+                points = RW.read("input/instance" + count);
 
             HashMap<Point, ArrayList<Point>> neighborX = new HashMap<>();
             HashMap<Point, ArrayList<Point>> neighborY = new HashMap<>();
@@ -59,9 +59,9 @@ public class Main {
                 sol = solveefficient(sortedX, sortedY, neighborX, neighborY);
             //Output formatted file
             if (count < 10)
-                generateOutput(sol, "greedy_solution0" + count + ".txt");
+                generateOutput(sol, "greedy_solution0" + count);
             else
-                generateOutput(sol, "greedy_solution" + count + ".txt");
+                generateOutput(sol, "greedy_solution" + count);
 
         }
 
@@ -74,7 +74,7 @@ public class Main {
         outList.add(sol.size() + "");
         for (Lines l : sol)
             outList.add(l.toString());
-        RW.write(outList, "output/" + trace);
+        RW.write(outList, "output_greedy/" + trace);
     }
 
     public static List<Lines> solvegreedy(List<Point> X, List<Point> Y, HashMap<Point, ArrayList<Point>> nX, HashMap<Point, ArrayList<Point>> nY) {
@@ -95,6 +95,7 @@ public class Main {
 
         }
 
+        //O(n^4)
         while (pairs.size() > 0) {
 
             HashSet<Double> midpointX = new HashSet<>();
